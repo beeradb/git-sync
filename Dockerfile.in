@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ARG_FROM
+FROM alpine:3.6
 
-MAINTAINER Tim Hockin <thockin@google.com>
-
-ADD bin/ARG_ARCH/ARG_BIN /ARG_BIN
+ADD bin/linux/git-sync /git-sync
 ENV GIT_SYNC_DEST /git
 
 RUN apk update --no-cache && apk add \
@@ -26,4 +24,4 @@ RUN apk update --no-cache && apk add \
     openssh-client
 
 USER nobody:nobody
-ENTRYPOINT ["/ARG_BIN"]
+ENTRYPOINT ["/git-sync"]
