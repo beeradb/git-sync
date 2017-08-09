@@ -21,7 +21,12 @@ RUN apk update --no-cache && apk add \
     ca-certificates \
     coreutils \
     git \
-    openssh-client
+    openssh-client \
+    shadow && \
+    addgroup -S nginx && \
+    adduser -S -g nginx nginx
 
-USER nobody:nobody
+RUN usermod -u 3005 nginx && groupmod -g 4005 nginx
+
+USER nginx:nginx
 ENTRYPOINT ["/git-sync"]
